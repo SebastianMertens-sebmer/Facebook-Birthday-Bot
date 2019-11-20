@@ -181,7 +181,10 @@ class Facebook:
         if telegram is True:
             ts = time.time()
             timestamp = str(datetime.datetime.fromtimestamp(ts).strftime('%d.%m.%y at %H:%M:%S'))
-            bot_message = "Persons wished happy birthday: " + str(', '.join(persons)) + '\n' + "Congrats timestamp: "+  timestamp
+            if len(persons) > 0:
+                bot_message = "Persons wished happy birthday: " + str(', '.join(persons)) + '\n' + "Congrats timestamp: "+  timestamp
+            else: 
+                bot_message = "No birthdays today" + '\n' + "Timestamp of execution: " + timestamp
             # Customize your message
             print("Sending message telegram")
             send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
