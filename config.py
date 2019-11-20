@@ -5,8 +5,8 @@ import random
 
 #insert your logincreds. PLEASE use your facebook email or it will fail 
 
-username = ''
-password = ''
+user = ''
+passwd = ''
 
 
 #If you dont want to tag the Person -
