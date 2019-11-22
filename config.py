@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#license gnu3
+#license GNU GPLv3
 from app.facebook import Facebook
 import random
 
