@@ -1,8 +1,3 @@
----
-
-
----
-
 <h1 id="facebook-birthday-bot">Facebook Birthday Bot</h1>
 <p><strong>Automatically wish happy birthday to your facebookfriends</strong>. How to automatically wish happy birthday to friends on Facebook?</p>
 <p>You are right here. This is a tiny python3 project.</p>
