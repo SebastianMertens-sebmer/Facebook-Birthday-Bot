@@ -166,7 +166,7 @@ class Facebook:
                     else:
                         commentInput.send_keys(greetings)
                     print('worked')
-                    #commentInput.submit()
+                    commentInput.submit()
                     time.sleep(2)
                     print('wished happy bday')
             except:
