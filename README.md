@@ -64,6 +64,6 @@ How to edit the 4 Parts? Just change them and in the randomizer edit the length.
 <p>Source: <a href="https://medium.com/@ManHay_Hong/how-to-create-a-telegram-bot-and-send-messages-with-python-4cf314d9fa3e">@ManHay_Hong</a> Thanks.</p>
 <p>Feel free to fork or write me ideas. <a href="mailto:becomebasti@gmail.com">becomebasti@gmail.com</a></p>
 <blockquote>
-<p><strong>Disclaimer</strong>: Please Note that this is a research project. I am by no means responsible for any usage of this tool. Use on your own behalf. I’m also not responsible if your accounts get banned due to extensive use of this tool. <strong>License</strong></p>
+<p><strong>Disclaimer</strong>: Please Note that this is a research project. I am by no means responsible for any usage of this tool. Use on your own behalf. I’m also not responsible if your accounts get banned due to extensive use of this tool. <strong>License GNU GPLv3</strong></p>
 </blockquote>
 
