@@ -24,6 +24,7 @@ bot_chatID = ''
 headless = True
 
 
+"""4 Parts of wihsing"""
 #Chose your greedings
 #GermanKRAUTversion
 #opener
