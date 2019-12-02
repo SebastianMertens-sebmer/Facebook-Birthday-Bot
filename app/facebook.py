@@ -65,13 +65,11 @@ class Facebook:
                 "network.proxy.ssl_port", int(proxy_port))
         """
 
-
-
     def login(self, user, passwd):
         self.driver.get(get_facebook_url())
-        #add cookie for 
+        #add cookie for
         try:
-            
+
             cookie_name = "cookies_" + str(user.split("@")[0]) + ".pkl"
             cookies = pickle.load(open(cookie_name, "rb"))
             for cookie in cookies:
@@ -80,16 +78,32 @@ class Facebook:
             self.driver.add_cookie(cookie)
             print("Added cookie")
             cookie = True
-        except: 
+        except:
             print("No Cookie - trying without")
             cookie = False
             print('reload page without cookie')
         time.sleep(5)
         self.driver.get(get_facebook_url())
         time.sleep(10)
-        if cookie is False or True: 
-            user_field = self.driver.find_element_by_xpath("//input[@id='email']")
-            ActionChains(self.driver).move_to_element(user_field).click().send_keys(Keys.COMMAND + 'a').send_keys(user).perform()
+        user_field = self.driver.find_element_by_xpath("//input[@id='email']")
+        ActionChains(self.driver).move_to_element(user_field).click().perform()
+        time.sleep(2)
+        if cookie is True:
+            n = len(user)
+            x = 1000
+            print(n)
+            while n > 0:
+                ActionChains(self.driver).send_keys(Keys.BACK_SPACE).perform()
+                ActionChains(self.driver).send_keys(Keys.DELETE).perform()
+                n = n - 1
+                x = x - 1
+                if n == 0:
+                    break
+                if x == 1:
+                    break
+            print('Loop ended.')
+        time.sleep(2)
+        ActionChains(self.driver).send_keys(user).perform()
         time.sleep(1)
         passwd_field = self.driver.find_element_by_xpath("//input[@id='pass']")
         ActionChains(self.driver).move_to_element(
@@ -143,6 +157,8 @@ class Facebook:
         time.sleep(10)
         wishbox = self.driver.find_elements_by_tag_name("textarea")
         boxIndex = 0
+        person_index = 0
+
         
         for commentBox in wishbox:
             boxIndex += 1           
@@ -155,7 +171,6 @@ class Facebook:
                     time.sleep(2)
                     commentInput = self.driver.find_element_by_tag_name("textarea")
                     ActionChains(self.driver).move_to_element(commentInput).click()
-                    person_index = 0
                     if tag is True and len(persons) != person_index:
                         """need to fix mark down"""
                         ActionChains(self.driver).send_keys('@' + persons[person_index]).send_keys(Keys.DOWN).send_keys(Keys.RETURN).perform()
