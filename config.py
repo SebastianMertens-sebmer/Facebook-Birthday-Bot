@@ -240,6 +240,8 @@ class Facebook:
             time.sleep(1)
         print('closing session now')
         self.driver.close()
+
+
 #next idea is to make the bot send messages to me whom i wished happyB
 #next step is then to send me yes or no options in telegram if i want to wish happyb or not
 #Ideas to work on

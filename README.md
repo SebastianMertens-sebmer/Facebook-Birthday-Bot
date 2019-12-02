@@ -1,8 +1,3 @@
----
-
-
----
-
 <h1 id="facebook-birthday-bot">Facebook Birthday Bot</h1>
 <p><strong>Automatically wish happy birthday to your facebookfriends</strong>. How to automatically wish happy birthday to friends on Facebook?</p>
 <p>You are right here. This is a tiny python3 project.</p>
@@ -32,7 +27,7 @@ sudo apt-get -y install google-chrome-stable
 tag = True
 telegram = True
 </code></pre>
-<p>That means for you if you don’t want to run it headless set it to False, same goes for tagging (by default the bot tags the people it wishes happyBirthday to) and telegram. The bot sends you automatically the name of the person to your telegram (how to set this up later more).</p>
+<p>That means if you don’t want to run it headless set it to False, same goes for tagging (by default the bot tags the people it wishes happyBirthday to) and telegram. The bot sends you automatically the name of the person to your telegram (how to set this up later more).</p>
 <p><strong>For Login:</strong><br>
 Use your Email and Password to login.<br>
 Insert your logincreds. PLEASE use your facebook email or it will fail</p>
@@ -40,7 +35,7 @@ Insert your logincreds. PLEASE use your facebook email or it will fail</p>
 passwd =  ''
 </code></pre>
 <h2 id="automates-facebook-birthday-messages">Automates Facebook Birthday Messages</h2>
-<p>The Facebook Birthday Bot comes with <em><strong>4 Parts</strong></em> in python lists. Here you can edit your wishes to your loved ones. The structure when <code>Tag = True</code> is <strong>Tagged Person + Hello + Opener + Wish + Good Bye + Your Name</strong></p>
+<p>The Facebook Birthday Bot comes with <em><strong>4 Parts</strong></em> in python lists. Here you can edit your wishes to your loved ones. The structure when <code>Tag = True</code> is <strong>Tagged Person + Hello + Opener + Wish + Good Bye</strong></p>
 <p>You can edit these <em><strong>4 Parts</strong></em> and turn off <strong>Tagged Person</strong> by setting <code>tag = False.</code><br>
 How to edit the 4 Parts? Just change them and in the randomizer edit the length. In case you just want to use 3 or 5 (for example) edit the <code>greetings_mix = [part1, part2, part3, part4]</code> list add or delete your next greetings list.</p>
 <h2 id="how-to-get-notfiyed-whom-you-wished-automatically-happy-birthday">How to get notfiyed whom you wished automatically happy birthday?</h2>
@@ -69,6 +64,6 @@ How to edit the 4 Parts? Just change them and in the randomizer edit the length.
 <p>Source: <a href="https://medium.com/@ManHay_Hong/how-to-create-a-telegram-bot-and-send-messages-with-python-4cf314d9fa3e">@ManHay_Hong</a> Thanks.</p>
 <p>Feel free to fork or write me ideas. <a href="mailto:becomebasti@gmail.com">becomebasti@gmail.com</a></p>
 <blockquote>
-<p><strong>Disclaimer</strong>: Please Note that this is a research project. I am by no means responsible for any usage of this tool. Use on your own behalf. I’m also not responsible if your accounts get banned due to extensive use of this tool. <strong>License</strong></p>
+<p><strong>Disclaimer</strong>: Please Note that this is a research project. I am by no means responsible for any usage of this tool. Use on your own behalf. I’m also not responsible if your accounts get banned due to extensive use of this tool. <strong>License GNU GPLv3</strong></p>
 </blockquote>
 
