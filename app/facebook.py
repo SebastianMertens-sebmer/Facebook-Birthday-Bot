@@ -13,6 +13,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 from .urls import get_facebook_url
 from .urls import get_facebook_url_wish
 from .urls import get_events
@@ -26,15 +27,14 @@ class Facebook:
         # firefox initialization
         options = webdriver.ChromeOptions()
         options.add_argument('--no-sandbox')
-        prefs = {"profile.default_content_setting_values.notifications" : 2}
-        options.add_experimental_option("prefs",prefs)
+        prefs = {"profile.default_content_setting_values.notifications": 2}
+        options.add_experimental_option("prefs", prefs)
         if headless is True:
             options.add_argument('headless')
             options.add_argument('--no sandbox')
             options.add_argument('window_size=1024x768')
         self.driver = webdriver.Chrome('./assets/chromedriver',
                                        chrome_options=options)
-
 
         """firefox_options = Options()
         if headless:
@@ -125,6 +125,15 @@ class Facebook:
             element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(By.NAME, "myDynamicElement"))
         finally:
             return True"""
+    def personexists(self, personexist):
+        self.driver.get(get_facebook_url_wish())
+        time.sleep(10)
+        elements = self.driver.find_elements_by_tag_name("textarea")
+        if not elements:
+            print("No element found")
+            Facebook.close()
+        else:
+            return personexist == True
 
     def persons(self):
         self.driver.get(get_facebook_url_wish())
@@ -141,16 +150,19 @@ class Facebook:
      #       persons.append(person)
      #       print (persons)
         time.sleep(10)
-        content_blocks = self.driver.find_elements_by_xpath(
-            '//*[@id="birthdays_content"]/div[1]/div[2]/ul')
-        global persons
-        time.sleep(3)
-        for block in content_blocks:
-            elements = block.find_elements_by_css_selector('a')
-            for el in elements:
-                persons.append(el.get_attribute("title"))
-        persons = [x for x in persons if x != '']
-        print(persons)
+
+
+        if personexists(personexist) is True:
+            content_blocks = self.driver.find_elements_by_xpath(
+                '//*[@id="birthdays_content"]/div[1]/div[2]/ul')
+            global persons
+            time.sleep(3)
+            for block in content_blocks:
+                elements = block.find_elements_by_css_selector('a')
+                for el in elements:
+                    persons.append(el.get_attribute("title"))
+            persons = [x for x in persons if x != '']
+            return persons
 
     def wishes(self, greetings, tag, user):
         self.driver.get(get_facebook_url_wish())
@@ -158,10 +170,15 @@ class Facebook:
         wishbox = self.driver.find_elements_by_tag_name("textarea")
         boxIndex = 0
         person_index = 0
+        global persons
 
-        
+        if len(wishbox) == len(persons):
+            tag == True
+        else:
+            tag == False
+
         for commentBox in wishbox:
-            boxIndex += 1           
+            boxIndex += 1
             try:
                 commentBox.click()
                 print('clicked a birthday-box')
@@ -169,11 +186,14 @@ class Facebook:
                 if (self):
                     #maybe better click person and loop threw persons pages and post directly and timeline
                     time.sleep(2)
-                    commentInput = self.driver.find_element_by_tag_name("textarea")
-                    ActionChains(self.driver).move_to_element(commentInput).click()
-                    if tag is True and len(persons) != person_index:
+                    commentInput = self.driver.find_element_by_tag_name(
+                        "textarea")
+                    ActionChains(self.driver).move_to_element(
+                        commentInput).click()
+                    if tag is True:
                         """need to fix mark down"""
-                        ActionChains(self.driver).send_keys('@' + persons[person_index]).send_keys(Keys.DOWN).send_keys(Keys.RETURN).perform()
+                        ActionChains(self.driver).send_keys(
+                            '@' + persons[person_index]).send_keys(Keys.DOWN).send_keys(Keys.RETURN).perform()
                         time.sleep(2)
                         commentInput.send_keys(' ')
                         commentInput.send_keys(greetings)
@@ -187,24 +207,29 @@ class Facebook:
             except:
                 time.sleep(2)
                 print("no wishes today!")
-                continue      
-        pickle.dump(self.driver.get_cookies(), open("cookies_" + str(user.split("@")[0]) + ".pkl", "wb"))
+                continue
+        pickle.dump(self.driver.get_cookies(), open(
+            "cookies_" + str(user.split("@")[0]) + ".pkl", "wb"))
         return None
 
-      
-    def telegram_bot_sendtext(self, bot_token, bot_chatID, telegram):
-        if telegram is True:
+    def telegram_bot_sendtext(self, bot_token, bot_chatID, telegram, personexists):
+        if telegram and personexists is True:
             ts = time.time()
-            timestamp = str(datetime.datetime.fromtimestamp(ts).strftime('%d.%m.%y at %H:%M:%S'))
+            timestamp = str(datetime.datetime.fromtimestamp(
+                ts).strftime('%d.%m.%y at %H:%M:%S'))
             if len(persons) > 0:
-                bot_message = "Persons wished happy birthday: " + str(', '.join(persons)) + '\n' + "Congrats timestamp: "+  timestamp
-            else: 
-                bot_message = "No birthdays today" + '\n' + "Timestamp of execution: " + timestamp
+                bot_message = "Persons wished happy birthday: " + \
+                    str(', '.join(persons)) + '\n' + \
+                    "Congrats timestamp: " + timestamp
+            else:
+                bot_message = "No birthdays today" + '\n' + \
+                    "Timestamp of execution: " + timestamp
             # Customize your message
             print("Sending message telegram")
-            send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
+            send_text = 'https://api.telegram.org/bot' + bot_token + \
+                '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
 
-            response = requests.get(send_text) 
+            response = requests.get(send_text)
             return response.json()
         else:
             None
@@ -214,13 +239,12 @@ class Facebook:
 
     def close(self):
         print('closing session in:')
-        range = [1, 2, 3,]
+        range = [1, 2, 3, ]
         for x in range:
-            print (x)
+            print(x)
             time.sleep(1)
         print('closing session now')
         self.driver.close()
-
 
 
 #next idea is to make the bot send messages to me whom i wished happyB
@@ -229,5 +253,3 @@ class Facebook:
 #       now wishes needs to repeat till it doesnt find anymore "textArea"
 #       //*[@id="birthdays_content"]/div[1]  it should find the amount of People / "textArea"s in this and exactly this often repeat to post the greetings
 #       if amount people is not equal amout of text boxes it should find the person "who blocked their time line" and write them a PM
-
-

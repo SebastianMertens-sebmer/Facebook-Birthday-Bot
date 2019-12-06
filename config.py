@@ -53,13 +53,14 @@ greetings = (" ".join(greeting))
 #telnr = '0049123455667890'
 
 #actuall programm
-personexists = None
+pexist == False
 
 fb = Facebook(headless)
 fb.login(user, passwd)
 fb.security()
-fb.persons(personexists)
+fb.personexists()
+fb.persons()
 fb.wishes(greetings, tag, user)
-fb.telegram_bot_sendtext(bot_token, bot_chatID, telegram, personexists)
+fb.telegram_bot_sendtext(bot_token, bot_chatID, telegram)
 #fb.whatsapp_message(telnr)
 fb.close()
