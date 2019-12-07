@@ -9,7 +9,9 @@
 pip3 install -r requirements.txt
 </code></pre>
 <p>Now its time for the Chromedriver.</p>
-<pre><code>wget http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+<pre><code>
+CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`
+wget http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
 unzip chromedriver_linux64.zip 
 mv chromedriver /assets
 chmod +x /assets/chromedriver
